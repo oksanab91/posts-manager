@@ -1,0 +1,31 @@
+<div class="card app-card" *ngIf="post">
+    <div class="row no-gutters row-max-height">
+  
+      <div class="col-lg-4 col-md-4 col-sm-4 col-4 text-center card-block-left">      
+        <img src="../../../assets/indian.jpg" class="card-img img-fluid img-round" alt="{{post.author}}">                  
+        <h6 class="card-text text-muted">{{post.author}}</h6>
+      </div>
+  
+      <div class="col-lg-8 col-md-8 col-sm-8 col-8 px-3">
+        <ul class="card-block-list">  
+          <li>
+            <div class="card-block">
+              <h5 class="card-title">{{post.author}}</h5>
+            </div>
+          </li>    
+          <li>
+            <div class="card-block">              
+              <h6 class="card-subtitle">{{post.header}}</h6>            
+              <p class="card-text text-muted">{{post.date | date:'fullDate'}}</p>
+              <p class="card-text text-muted">P: {{post.details}}</p>
+            </div>            
+          </li>
+          
+          <li class="confirm-btn">
+            <confirm-modal [post]="post" *ngIf="post !== undefined"></confirm-modal>
+          </li>
+  
+        </ul>
+      </div>  
+    </div>
+  </div>

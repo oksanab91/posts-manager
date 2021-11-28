@@ -1,0 +1,14 @@
+<posts-filter></posts-filter>
+  <div class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollThrottle]="throttle"
+    (scrolled)="onScrollDown()"
+    [scrollWindow]="false">
+
+    <div class="row row-list" *ngIf="(postList$ | async) as list">
+      <ng-container *ngFor="let post of list; trackBy: trackByFn">      
+        <post [post]="post" class="col-md-12 col-sm-12 col-12 col-lg-4"></post>
+      </ng-container>
+    </div>    
+  </div>

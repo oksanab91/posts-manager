@@ -1,0 +1,6 @@
+@import "containers";
+
+.search-results {
+    height: calc(100% - #{38px});
+    overflow: scroll;
+}

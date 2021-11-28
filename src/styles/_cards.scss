@@ -1,0 +1,82 @@
+@import "app-variables";
+
+$mobileCardPlusHeight: 6.7rem;
+
+@mixin app-card {    
+    min-width: $cardMinWidth;
+    min-height: $cardMinHeight;
+    height: 100%;
+    border-radius: 0px;
+    border: none;
+    background-color: $backgroundColor
+}
+
+.app-card {
+    @include app-card;
+    
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    padding-right: .7rem;
+    h6{
+        padding-top: 1.6rem;
+    }
+
+    h5 {
+        overflow: hidden;
+        overflow-wrap: normal;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+.card-block-left {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: $paddingSmall 0 $paddingSmall $paddingSmall;    
+}
+
+.card-block {
+    .card-text {
+        white-space: break-spaces;
+    }
+}
+
+.card-block-list {
+    @include clear-all;    
+    list-style-type: none;    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;    
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+    padding: $paddingNormal 0;    
+    background-color: transparent;
+
+    >* {    
+        margin-right: 0.25rem;
+        margin-left: 0.25rem;    
+    }
+}
+
+.card-title {    
+    margin: 0;
+    padding: $paddingNormal 0;
+}
+
+.row-max-height {
+    height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    .card-block-left {
+        text-align-last: end;
+    }
+}

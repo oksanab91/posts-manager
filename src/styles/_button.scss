@@ -1,0 +1,100 @@
+@import "app-variables";
+
+@mixin button-hover($backgroundColor: $btnColorDark, $color: $btnActiveColor) {
+    @include box-shadow;
+    @include container-border;	
+    background-color: $backgroundColor;
+    color: $color;
+    cursor: $cursor;
+}
+
+@mixin button-round($diameter: $btnDiameter, $color: $btnColor, $background-color: $btnActiveColor) {
+    background-color: $background-color;
+    color: $color;
+    margin-bottom: auto;
+    margin-top: auto;
+    height: $diameter;
+    width: $diameter;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;    
+    text-decoration: none;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;     
+}
+
+button {
+    cursor: default;
+}
+
+a:hover {
+    cursor: $cursor;
+}
+
+.btn-close {    
+    @include button-round(1.5rem);
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: -.5rem;    
+    padding: 1rem 1rem;
+    font-size: 1.6rem;
+    opacity: .5;
+
+    span {
+        position: absolute;
+        padding-bottom: $paddingExSm;
+    }
+    &:hover:not([disabled]) {
+        @include button-hover($btnSecondColorDark);                     
+    }
+}
+
+.btn-cancel {
+    border-radius: 0%;
+}
+
+.btn-submit {
+    border-radius: 0%;
+    background-color: $btnColorDark; 
+
+    &:hover:not([disabled]) {
+        @include button-hover;      
+    }
+}
+
+.btn-card-delete {
+    border-radius: 0%;
+    background-color: $btnColorDark;     
+
+    &:hover:not([disabled]) {
+        @include button-hover($btnWarnColor);      
+    }
+    box-shadow: none;
+}
+
+.btn-sm-icon {
+    padding-right: 0;
+    font-size: $fontSize;
+
+    &:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+    &:hover {
+        color: $btnWarnColor;
+    }
+    &:active {
+        position: relative;
+        top: 1px;
+    }      
+}
+
+@media screen and (max-width: 800px) {
+    .btn-sm-icon, .btn-card-edit, .btn-card-delete, btn-close, .btn-cancel, .btn-submit {
+        @include container-border;
+    }
+}

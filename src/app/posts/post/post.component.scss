@@ -1,0 +1,21 @@
+
+@import "cards";
+@import "button";
+
+:host { 
+    padding: $paddingSmall;
+}
+
+.img-round {
+    border-radius: 50%;
+}
+.confirm-btn {
+    text-align: end;
+}
+
+@media screen and (max-width: 800px) {
+    :host { 
+        padding: 0;
+        margin: 5px;
+    }
+}

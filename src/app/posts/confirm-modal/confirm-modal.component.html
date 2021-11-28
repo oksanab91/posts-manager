@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-primary btn-card-delete" 
+  data-bs-toggle="modal" (click)="show()" data-bs-target="#confirmModal">Delete
+  <i class="fas fa-trash-alt fa-sm"></i>
+</button>
+<!-- Modal -->  
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+  [ngClass]="(modalVisible$ | async) ? 'show' : ''" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Delete Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="hide()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to delete the Post ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal" (click)="hide()" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary btn-submit" data-bs-dismiss="modal" (click)="ok()" aria-label="Confirm">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
