@@ -26,6 +26,10 @@ export const SetPageNumberAction = createAction(
     '[POSTS] set page',
     props<{pageNumber: number}>()
 );
+export const SetFilterAction = createAction(
+    '[POSTS] set filter',
+    props<{filter: string}>()
+);
 export const SetModalShowAction = createAction(
     '[MODAL] show',
     props<{show: boolean}>()

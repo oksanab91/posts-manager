@@ -13,13 +13,18 @@ export const initialState: PostsActions.ManagerState = {
 export const postsReducer = createReducer(
     initialState,
     on(PostsActions.LoadPostsAction, (state, {filter, pageNumber}) => ({ ...state, 
-        filter: filter ? filter : state.filter,
-        pageNum: pageNumber === 0 ? state.pageNum : pageNumber
+        filter: filter === 'none' ? state.filter : filter,
+        pageNum: pageNumber === 0 ? 1 : pageNumber
     })),
 
-    on(PostsActions.LoadPostsSuccessAction, (state, {posts}) => ({ ...state, posts: [...posts] } )),
+    on(PostsActions.LoadPostsSuccessAction, (state, {posts}) => {        
+        const list = posts.slice(posts.length - 10)
+        return { ...state, posts: [...posts, ...list] } 
+    }),
 
     on(PostsActions.SetPageNumberAction, (state, {pageNumber}) => ({ ...state, pageNum: pageNumber })),
+
+    on(PostsActions.SetFilterAction, (state, {filter}) => ({ ...state, filter: filter, posts: [] })),
 
     on(PostsActions.SetModalShowAction, (state, {show}) => {
         const confirmed = show ? false : state.modalConfirm.deleteOK

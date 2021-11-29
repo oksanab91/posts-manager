@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, of, Subject, Subscription, switchMap } from 'rxjs';
+import { concat, debounceTime, distinctUntilChanged, Subject, Subscription, switchMap } from 'rxjs';
 import { PostsStore } from '@storeManager/posts.store';
 
 @Component({
@@ -14,9 +14,12 @@ export class PostsFilterComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.searchName.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),             
-      switchMap((filter: string) => of(this.store.loadPosts(filter, 0)))
+      debounceTime(400),
+      distinctUntilChanged(),      
+      switchMap((filter: string) => concat(
+        [this.store.setFilter(filter),
+        this.store.loadPosts(filter, 0)])
+        )
     )
     .subscribe()
   }

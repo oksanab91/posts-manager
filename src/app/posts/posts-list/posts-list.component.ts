@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { map, Observable, Subscription } from 'rxjs';
 import { Post } from '@models/models';
 import { PostsStore } from '@storeManager/posts.store';
 
@@ -9,26 +9,34 @@ import { PostsStore } from '@storeManager/posts.store';
   styleUrls: ['./posts-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostsListComponent implements OnInit {
+export class PostsListComponent implements OnInit, OnDestroy {
   postList$: Observable<Post[]>
-  throttle = 50;
-  scrollDistance = 2;
-  direction = "";
-  pageNumber = 1;
+  throttle = 100
+  scrollDistance = 2
+  direction = ""
+  private pageNumber = 1
+  private subscriptions: Subscription[] = []
 
   constructor(private store: PostsStore) { }
 
   ngOnInit() {
-    this.postList$ = this.store.selectVisiblePosts$
-    this.store.loadPosts('', this.pageNumber)
+    this.postList$ = this.store.selectPosts$
+    this.store.loadPosts('none', this.pageNumber)
+
+    this.subscriptions.push(this.store.selectPageNumber$.pipe(map(page => {
+      this.pageNumber = page
+    })).subscribe())
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(sb => sb.unsubscribe())
+  }
   trackByFn(index: number, item: Post) {
     return item;
   }
   onScrollDown() {
     this.direction = "down";
-    this.pageNumber++;
-    this.store.loadPosts('', this.pageNumber)
-  }  
+    this.pageNumber ++
+    this.store.loadPosts('none', this.pageNumber)
+  }
 }
